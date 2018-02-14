@@ -1,10 +1,13 @@
+import os
+
 # paths
-qa_path = 'vqa'  # directory containing the question and annotation jsons
-train_path = 'mscoco/train2014'  # directory of training images
-val_path = 'mscoco/val2014'  # directory of validation images
-test_path = 'mscoco/test2015'  # directory of test images
-preprocessed_path = '/ssd/resnet-14x14.h5'  # path where preprocessed features are saved to and loaded from
-vocabulary_path = 'vocab.json'  # path where the used vocabularies for question and answers are saved to
+root_dir = '/scratch/pramodkm/vqa/'
+qa_path = os.path.join(root_dir, 'data_vqa1.0')  # directory containing the question and annotation jsons
+train_path = os.path.join(root_dir, 'data_vqa1.0/train2014')  # directory of training images
+val_path = os.path.join(root_dir, 'data_vqa1.0/val2014')  # directory of validation images
+test_path = os.path.join(root_dir, 'data_vqa1.0/test2015')  # directory of test images
+preprocessed_path = os.path.join(root_dir, 'data_vqa1.0/resnet-14x14.h5')  # path where preprocessed features are saved to and loaded from
+vocabulary_path = os.path.join(root_dir, 'data_vqa1.0/vocab.json')  # path where the used vocabularies for question and answers are saved to
 
 task = 'OpenEnded'
 dataset = 'mscoco'
