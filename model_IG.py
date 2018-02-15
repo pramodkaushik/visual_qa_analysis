@@ -56,8 +56,9 @@ class Net(nn.Module):
         answer = self.classifier(combined)
         
         if compute_gradient:
-            gradient = torch.autograd.grad(torch.unbind(answer[:, ans_index]), q_emb)
-            return answer, gradient[0]
+            softmax = torch.nn.functional.softmax(answer)
+            gradient = torch.autograd.grad(torch.unbind(softmax[:, ans_index]), q_emb)
+            return softmax, gradient[0]
         return answer
 
 
