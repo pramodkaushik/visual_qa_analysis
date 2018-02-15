@@ -44,9 +44,9 @@ class Net(nn.Module):
                 init.xavier_uniform(m.weight)
                 if m.bias is not None:
                     m.bias.data.zero_()
-
-    def forward(self, v, q, q_len):
-        q = self.text(q, list(q_len.data))
+                    
+    def forward(self, v, q_emb, q_len, compute_gradient=False, ans_index=-1):
+        q = self.text(q_emb, list(q_len.data))
 
         v = v / (v.norm(p=2, dim=1, keepdim=True).expand_as(v) + 1e-8)
         a = self.attention(v, q)
@@ -54,6 +54,10 @@ class Net(nn.Module):
 
         combined = torch.cat([v, q], dim=1)
         answer = self.classifier(combined)
+        
+        if compute_gradient:
+            gradient = torch.autograd.grad(torch.unbind(answer[:, ans_index]), q_emb)
+            return answer, gradient[0]
         return answer
 
 
