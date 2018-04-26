@@ -23,20 +23,20 @@ class Net(nn.Module):
             embedding_tokens=embedding_tokens,
             embedding_features=300,
             lstm_features=question_features,
-            drop=0.5,
+            drop=0.0,
         )
         self.attention = Attention(
             v_features=vision_features,
             q_features=question_features,
             mid_features=512,
             glimpses=2,
-            drop=0.5,
+            drop=0.0,
         )
         self.classifier = Classifier(
             in_features=glimpses * vision_features + question_features,
             mid_features=1024,
             out_features=config.max_answers,
-            drop=0.5,
+            drop=0.0,
         )
 
         for m in self.modules():
