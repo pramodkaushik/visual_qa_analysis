@@ -1,27 +1,14 @@
-# Strong baseline for visual question answering
+# Analysis of a Visual Question Answering Model
 
-This is a re-implementation of Vahid Kazemi and Ali Elqursh's paper [Show, Ask, Attend, and Answer: A Strong Baseline For Visual Question Answering][0] in [PyTorch][1].
+The code in this repo analyzes [a visual question answering
+model](https://arxiv.org/abs/1704.03162), and is based
+on the implementation from [here](https://github.com/Cyanogenoid/pytorch-vqa).
 
-The paper shows that with a relatively simple model, using only common building blocks in Deep Learning, you can get better accuracies than the majority of previously published work on the popular [VQA v1][2] dataset.
-
-This repository is intended to provide a straightforward implementation of the paper for other researchers to build on.
-The results closely match the reported results, as the majority of details should be exactly the same as the paper. (Thanks to the authors for answering my questions about some details!)
-This implementation seems to consistently converge to about 0.1% better results –
-there are two main implementation differences:
-
-- Instead of setting a limit on the maximum number of words per question and cutting off all words beyond this limit, this code uses per-example dynamic unrolling of the language model.
-- [An issue with the official evaluation code](https://github.com/Cyanogenoid/pytorch-vqa/issues/5) makes some questions unanswerable. This code does not normalize machine-given answers, which avoids this problem. As the vast majority of questions are not affected by this issue, it's very unlikely that this will have any significant impact on accuracy.
-
-A fully trained model (convergence shown below) is [available for download][5].
-
-![Graph of convergence of implementation versus paper results](http://i.imgur.com/moWYEm8.png)
-
-
-## Running the model
+## Initial setup
 
 - Clone this repository with:
 ```
-git clone https://github.com/Cyanogenoid/pytorch-vqa --recursive
+git clone https://github.com/Cyanogenoid/pytorch-vqa.git --recursive
 ```
 - Set the paths to your downloaded [questions, answers, and MS COCO images][4] in `config.py`.
   - `qa_path` should contain the files `OpenEnded_mscoco_train2014_questions.json`, `OpenEnded_mscoco_val2014_questions.json`, `mscoco_train2014_annotations.json`, `mscoco_val2014_annotations.json`.
@@ -42,7 +29,6 @@ The logs contain the name of the model, training statistics, contents of `config
 python view-log.py <path to .pth log>
 ```
 
-
 ## Python 3 dependencies (tested on Python 3.6.2)
 
 - torch
@@ -50,11 +36,22 @@ python view-log.py <path to .pth log>
 - h5py
 - tqdm
 
+## Downloading results
 
+Download the results from [this Dropbox folder]
 
-[0]: https://arxiv.org/abs/1704.03162
-[1]: https://github.com/pytorch/pytorch
-[2]: http://visualqa.org/
-[3]: https://github.com/ruotianluo/pytorch-resnet
-[4]: http://visualqa.org/vqa_v1_download.html
-[5]: https://github.com/Cyanogenoid/pytorch-vqa/releases
+Primary contact: **Pramod Kaushik
+Mudrakarta**[pramodkm@uchicago.edu](mailto:pramodkm@uchicago.edu)
+
+# Cite
+
+Mudrakarta, Pramod Kaushik, Ankur Taly, Mukund Sundararajan, and Kedar Dhamdhere. "Did the Model Understand the Question?." arXiv preprint arXiv:1805.05492 (2018).
+
+```
+@article{mudrakarta2018did,
+  title={Did the Model Understand the Question?},
+  author={Mudrakarta, Pramod Kaushik and Taly, Ankur and Sundararajan, Mukund and Dhamdhere, Kedar},
+  journal={arXiv preprint arXiv:1805.05492},
+  year={2018}
+}
+```
